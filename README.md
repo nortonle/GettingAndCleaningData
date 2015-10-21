@@ -9,7 +9,7 @@ The repository contains 3 main parts, which are Data folder, output.txt file and
   * The result of step 5 in the assignment. The file is written in the same directory of script run_analysis.R
   * The result contains 181 lines, and 88 columns. 
   * The first line is the variable names, other 180 rows are the average of each activity of each variable for each of subject. There are 30 subjects and 6 activities, therefore there are 180 rows. 
-  * There are 88 variables that match either mean or standard deviation. Please be noted: as long as variable name contains either "mean" or "std". Therefore, such variable "meanFreq" is included.
+  * There are 86 variables that match either mean or standard deviation. Please be noted: as long as variable name contains either "mean" or "std". Therefore, such variable "meanFreq" is included.
 * run_analysis.R
   * The script requires library dplyr to work.
   * There are 5 steps in the scripts, according to the assignment. Those steps are described more detail below.
