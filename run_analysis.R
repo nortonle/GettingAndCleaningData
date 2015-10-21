@@ -1,4 +1,8 @@
 library(dplyr)
+
+###################1st step##################
+#####combining all data into one place#######
+
 ##reading and combining data for test data set
 df <- read.table("Data/test/X_test.txt")
 x_test <- tbl_df(df)
@@ -7,8 +11,8 @@ names(df) <- "activity_id"
 y_test <- tbl_df(df)
 df <- read.table("Data/test/subject_test.txt")
 names(df) <- "Subject_ID"
-person_test <- tbl_df(df)
-####combining all together
+person_test <- tbl_df(df) 
+####combining test data set
 test_data <- cbind(person_test, y_test, x_test)
 test_data <- tbl_df(test_data)
 
@@ -21,7 +25,7 @@ y_train <- tbl_df(df)
 df <- read.table("Data/train/subject_train.txt")
 names(df) <- "Subject_ID"
 person_train <- tbl_df(df)
-####combining all together
+####combining training data set
 train_data <- cbind(person_train, y_train, x_train)
 train_data <- tbl_df(train_data)
 
@@ -31,8 +35,12 @@ rm(df)
 ##combining both training and test data set
 v_data <- rbind(test_data, train_data)
 v_data <- tbl_df(v_data)
+############end of 1st step##################
 
-##getting only mean and std measurement
+###################2nd step##################
+###only keeping mean and std measurement#####
+
+##read all label id from feature.txt into R
 feature_label <- read.table("Data/features.txt")
 names(feature_label) <- c("measurement_id", "measurement")
 feature_label <- tbl_df(feature_label)
@@ -41,11 +49,11 @@ feature_label <- select(feature_label, m_id, measurement, -measurement_id)
 
 ####this is for activity with mean label
 mean_activity <- filter(feature_label, grepl(pattern = "mean", x = measurement, ignore.case = TRUE)) %>%
-                  select(m_id)
+  select(m_id)
 
 ####this is for std activity label
 std_activity <- filter(feature_label, grepl(pattern = "std", x = measurement, ignore.case = TRUE)) %>%
-                  select(m_id)
+  select(m_id)
 
 ####combining both label together
 df_activity <- rbind("Subject_ID", "activity_id", mean_activity, std_activity)
@@ -54,16 +62,22 @@ vector_activity <- as.vector(as.data.frame(select(df_activity, m_id))[, 1])
 ##filtering only requested columns
 v_filtered_data <- v_data[, vector_activity]
 v_filtered_data <- tbl_df(v_filtered_data)
+############end of 2nd step##################
 
-##get the activity label
+###################3rd step##################
+######Applying descriptive activity name#####
+
+##Read activity label from activity_labels.txt
 activity_label <- read.table("Data/activity_labels.txt")
 names(activity_label) <- c("activity_id", "activity")
 activity_label <- tbl_df(activity_label)
 
 ##joining activity label with the filtered data set
 v_filtered_data <- select(inner_join(x = activity_label, y = v_filtered_data, by = "activity_id"), -activity_id)
+############end of 3rd step##################
 
-##labeling columns
+###################4th step##################
+##labeling with descriptive variable names###
 vector_feature <- data.frame(lapply(feature_label, as.character), stringsAsFactors=FALSE)
 for (i in 3:length(names(v_filtered_data)))
 {
@@ -72,11 +86,14 @@ for (i in 3:length(names(v_filtered_data)))
     if (names(v_filtered_data)[i] == vector_feature[j, 1])
       names(v_filtered_data)[i] <- vector_feature[j, 2]
   }
-  
-##grouping and summarise
+}  
+############end of 4th step##################
+
+###################5th step##################
+##########group by and summary###############
 by_subject <- group_by(v_filtered_data, Subject_ID, activity)
 by_subject <- summarise_each(by_subject, funs(mean))
-}
+############end of 5th step##################
 
 ##writing to file
 write.table(by_subject, "output.txt", row.names = FALSE)
