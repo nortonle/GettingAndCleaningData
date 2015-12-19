@@ -1,6 +1,6 @@
-#This is the code book for the output.txt file. This dataset is generated from the run_analysis.R script
+##This is the code book for the output.txt file. This dataset is generated from the run_analysis.R script
 
-##The dataset contains 68 variables, with 180 observation
+###The dataset contains 68 variables, with 180 observation
 $ activity                   : Factor w/ 6 levels "WALKING","WALKING_UPSTAIRS",..: 1 1 1 1 1 1 1 1 1 1 ...
 $ subject                    : int  1 2 3 4 5 6 7 8 9 10 ...<br>
 $ tBodyAcc.mean...X          : num  0.277 0.276 0.276 0.279 0.278 ...<br>
@@ -68,17 +68,17 @@ $ fBodyBodyAccJerkMag.std..  : num  -0.1035 -0.1641 -0.0899 -0.3205 -0.3057 ...<
 $ fBodyBodyGyroMag.mean..    : num  -0.199 -0.531 -0.57 -0.609 -0.484 ...<br>
 $ fBodyBodyGyroMag.std..     : num  -0.321 -0.652 -0.633 -0.594 -0.59 ...<br>
 $ fBodyBodyGyroJerkMag.mean..: num  -0.319 -0.583 -0.608 -0.724 -0.548 ...<br>
-$ fBodyBodyGyroJerkMag.std.. : num  -0.382 -0.558 -0.549 -0.758 -0.456 ...  </p>
+$ fBodyBodyGyroJerkMag.std.. : num  -0.382 -0.558 -0.549 -0.758 -0.456 ...
 
-##Desc: This column represents the 6 different types of activities that is being captured as part of the experiment.
-Datatype : Factor
-index             labels
-1     1            WALKING
-2     2   WALKING_UPSTAIRS
-3     3 WALKING_DOWNSTAIRS
-4     4            SITTING
-5     5           STANDING
-6     6             LAYING
+###This column represents the 6 different types of activities that is being captured as part of the experiment.
+Datatype : Factor <br>
+index        labels <br>
+1            WALKING <br>
+2   WALKING_UPSTAIRS <br>
+3 WALKING_DOWNSTAIRS <br>
+4            SITTING <br>
+5           STANDING <br>
+6             LAYING <br>
 
-##Desc: This represent the 30 different test subjects (from 1 to 30)
+###This represent the 30 different test subjects (from 1 to 30)
 Datatype: Integer 
